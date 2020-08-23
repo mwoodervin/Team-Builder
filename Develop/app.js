@@ -14,61 +14,58 @@ function promptUser() {
     return inquirer.prompt([
         {
             type: "input",
-            name: "title",
-            message: "What is the title of this project?",
-            default: "Readme Generator"
-        },
-        {
-            type: "input",
-            name: "description",
-            message: "Enter a description of the application.",
-            default: "This application creates a Readme file template with basic headings and content."
-        },
-        {
-            type: "input",
-            name: "installation",
-            message: "Enter instructions for installing your application.",
-            default: "node index.js"
-        },
-        {
-            type: "input",
-            name: "usage",
-            message: "Enter instructions for using your application.",
-            default: "WHEN I want to create a new Readme file, THEN ..."
+            name: "name",
+            message: "Please enter your name, first and last.",
+            default: "Mary W. Ervin"
         },
         {
             type: "list",
-            name: "license",
-            message: "What licence are you using for this application?",
-            choices: ["MIT", "Apache 2.0", "GPL v3", "Mozilla", "BSD 3"], 
-            default: "MIT"
+            name: "pronoun",
+            message: "Please select your preferred gender prounouns.",
+            choices: ["she/her/hers", "he/him/his", "they/them/theirs"], 
+            default: "she/her/hers"
+        },
+        {
+            type: "list",
+            name: "title",
+            message: "Title: ",
+            choices: ["Manager", "Engineer", "Intern"]
         },
         {
             type: "input",
-            name: "contributing",
-            message: "Enter instructions for contributing to this file.",
-            default: "If you are intereted in contributing to this project ..."
-        },
-        {
-            type: "input",
-            name: "testing",
-            message: "Enter instructions for testing this application.",
-            default: "Test information here"
-        },
-        {
-            type: "input",
-            name: "github",
-            message: "What is your github username?",
-            default: "mwoodervin"
+            name: "id",
+            message: "Please enter your employee ID.",
+            default: "12345"
         },
         {
             type: "input",
             name: "email",
-            message: "Enter your email address. (Contact for questions.)",
+            message: "Please provide your preferred email address.",
             default: "mwoodervin@gmail.com"
-        },
-
-    ]);
+        },            
+    ])
+    .then((answer) => {
+        if(answer.title === "Manager") {
+      inquirer.prompt({
+        type: 'input',
+        name: 'officeNumber',
+        message: 'Please provide your office number.',
+      });
+      } else if (answer.title === "Engineer"){
+          inquirer.prompt({
+            type: 'input',
+            name: 'github',
+            message: 'Please provide your github ID.',
+              })
+      } else {
+          inquirer.prompt({
+            type: 'input',
+            name: 'github',
+            message: 'Please provide your github ID.',
+              })
+      }
+    
+    });
 }
 
 promptUser();
