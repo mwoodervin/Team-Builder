@@ -60,8 +60,8 @@ function promptUser() {
       } else {
           inquirer.prompt({
             type: 'input',
-            name: 'github',
-            message: 'Please provide your github ID.',
+            name: 'school',
+            message: 'What school are you attending.',
               })
       }
     
