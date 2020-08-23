@@ -10,7 +10,68 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+function promptUser() {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "title",
+            message: "What is the title of this project?",
+            default: "Readme Generator"
+        },
+        {
+            type: "input",
+            name: "description",
+            message: "Enter a description of the application.",
+            default: "This application creates a Readme file template with basic headings and content."
+        },
+        {
+            type: "input",
+            name: "installation",
+            message: "Enter instructions for installing your application.",
+            default: "node index.js"
+        },
+        {
+            type: "input",
+            name: "usage",
+            message: "Enter instructions for using your application.",
+            default: "WHEN I want to create a new Readme file, THEN ..."
+        },
+        {
+            type: "list",
+            name: "license",
+            message: "What licence are you using for this application?",
+            choices: ["MIT", "Apache 2.0", "GPL v3", "Mozilla", "BSD 3"], 
+            default: "MIT"
+        },
+        {
+            type: "input",
+            name: "contributing",
+            message: "Enter instructions for contributing to this file.",
+            default: "If you are intereted in contributing to this project ..."
+        },
+        {
+            type: "input",
+            name: "testing",
+            message: "Enter instructions for testing this application.",
+            default: "Test information here"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is your github username?",
+            default: "mwoodervin"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter your email address. (Contact for questions.)",
+            default: "mwoodervin@gmail.com"
+        },
 
+    ]);
+}
+
+promptUser();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
