@@ -10,9 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 function welcomeUser() {
-    console.log("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
+    console.log ("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
     promptUser();
 };
 
@@ -24,15 +23,8 @@ function promptUser() {
         {
             type: "input",
             name: "name",
-            message: "Employee name, first and last.",
+            message: "Enter employee name, first and last.",
             default: "Mary W. Ervin"
-        },
-        {
-            type: "list",
-            name: "pronoun",
-            message: "Please select a preferred gender prounoun.",
-            choices: ["she/her/hers", "he/him/his", "they/them/theirs"], 
-            default: "she/her/hers"
         },
         {
             type: "list",
@@ -51,40 +43,36 @@ function promptUser() {
             name: "email",
             message: "Employee's email address:",
             default: "mwoodervin@gmail.com"
-        },            
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Enter office number:",
+            when: (answers) => answers.role === "Manager"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "Enter githubID:",
+            when: (answers) => answers.role === "Engineer"
+        } , 
+        {
+            type: "input",
+            name: "school",
+            message: "Enter name of school:",
+            when: (answers) => answers.role === "Intern"
+        },
+        {
+            type: "confirm",
+            name: "continue",
+            message: "Would you like to enter another employee?"
+        }             
     ])
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-    // additional inquirer prompts based on whether employee is a manager, engineer or intern
-    .then((answer) => {
-        if(answer.role === "Manager") {
-      inquirer.prompt({
-        type: 'input',
-        name: 'officeNumber',
-        message: 'Office number:',
-      });
-      } else if (answer.role === "Engineer"){
-          inquirer.prompt({
-            type: 'input',
-            name: 'github',
-            message: 'Github ID:',
-              })
-      } else {
-          inquirer.prompt({
-            type: 'input',
-            name: 'school',
-            message: 'School attending:',
-              })
-      }
-      console.log("Would you like to enter another employee?");
      
-    });
+    }
 
     
-}
+// });
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
