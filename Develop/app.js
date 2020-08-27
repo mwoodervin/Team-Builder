@@ -10,6 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employees = [];
+
 function welcomeUser() {
     console.log ("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
     promptUser();
@@ -68,6 +70,42 @@ function promptUser() {
             message: "Would you like to enter another employee?"
         }             
     ])
+    .then((answer) => {
+        employees.push(answer);
+        if (answer.continue) {
+            promptUser();
+        }
+        else {
+            console.log("Finished entering employees. Your team has been created.");
+            console.log(employees);
+            return employees;
+            // fs.writeFile(html);
+        }
+    });
+
+
+    // additional inquirer prompts based on whether employee is a manager, engineer or intern
+    // .then((answer) => {
+    //     if(answer.role === "Manager") {
+    //   return inquirer.prompt({
+    //     type: 'input',
+    //     name: 'officeNumber',
+    //     message: 'Office number:',
+    //   });
+    //   } else if (answer.role === "Engineer"){
+    //       return inquirer.prompt({
+    //         type: 'input',
+    //         name: 'github',
+    //         message: 'Github ID:',
+    //           })
+    //   } else {
+    //       return inquirer.prompt({
+    //         type: 'input',
+    //         name: 'school',
+    //         message: 'School attending:',
+    //           })
+    //   }
+    //   console.log("Would you like to enter another employee?");
      
     }
 
