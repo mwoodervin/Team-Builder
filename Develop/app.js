@@ -10,71 +10,92 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-function promptUser() {
+
+function welcomeUser() {
+    console.log("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
+    promptUser();
+};
+
+// Code using inquirer to gather information about the development team members,
+// ????????and to create objects for each team member (using the correct classes as blueprints!)????????
+
+function promptUser() {    
     return inquirer.prompt([
         {
             type: "input",
             name: "name",
-            message: "Please enter your name, first and last.",
+            message: "Employee name, first and last.",
             default: "Mary W. Ervin"
         },
         {
             type: "list",
             name: "pronoun",
-            message: "Please select your preferred gender prounouns.",
+            message: "Please select a preferred gender prounoun.",
             choices: ["she/her/hers", "he/him/his", "they/them/theirs"], 
             default: "she/her/hers"
         },
         {
             type: "list",
-            name: "title",
-            message: "Title: ",
+            name: "role",
+            message: "Employee title: ",
             choices: ["Manager", "Engineer", "Intern"]
         },
         {
             type: "input",
             name: "id",
-            message: "Please enter your employee ID.",
-            default: "12345"
+            message: "Employee ID:",
+            default: "1"
         },
         {
             type: "input",
             name: "email",
-            message: "Please provide your preferred email address.",
+            message: "Employee's email address:",
             default: "mwoodervin@gmail.com"
         },            
     ])
+
+// HINT: each employee type (manager, engineer, or intern) has slightly different
+// information; write your code to ask different questions via inquirer depending on
+// employee type.
+
+    // additional inquirer prompts based on whether employee is a manager, engineer or intern
     .then((answer) => {
-        if(answer.title === "Manager") {
+        if(answer.role === "Manager") {
       inquirer.prompt({
         type: 'input',
         name: 'officeNumber',
-        message: 'Please provide your office number.',
+        message: 'Office number:',
       });
-      } else if (answer.title === "Engineer"){
+      } else if (answer.role === "Engineer"){
           inquirer.prompt({
             type: 'input',
             name: 'github',
-            message: 'Please provide your github ID.',
+            message: 'Github ID:',
               })
       } else {
           inquirer.prompt({
             type: 'input',
             name: 'school',
-            message: 'What school are you attending.',
+            message: 'School attending:',
               })
       }
-    
+      console.log("Would you like to enter another employee?");
+     
     });
-}
 
-promptUser();
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+    
+}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
+
+// Call the functions here
+welcomeUser();
+
+
+
+
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
@@ -82,9 +103,6 @@ promptUser();
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
 
 // HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
 // and Intern classes should all extend from a class named Employee; see the directions
