@@ -4,18 +4,26 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const util = require("util");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { ENGINE_METHOD_RSA } = require("constants");
 
-const employees = [];
+const writetoFile = util.promisify(fs.writeFile);
 
-function welcomeUser() {
-    console.log ("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
-    promptUser();
-};
+let employees = [];
+const managers = [];
+const interns = [];
+const engineers = [];
+let isManagerPicked = false;
+
+// function init() {
+//     console.log ("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
+//     promptUser();
+// };
 
 // Code using inquirer to gather information about the development team members,
 // ????????and to create objects for each team member (using the correct classes as blueprints!)????????
@@ -32,7 +40,7 @@ function promptUser() {
             type: "list",
             name: "role",
             message: "Employee title: ",
-            choices: ["Manager", "Engineer", "Intern"]
+            choices: isManagerPicked ? ["Engineer", "Intern"] : ["Manager", "Engineer", "Intern"]
         },
         {
             type: "input",
@@ -69,55 +77,65 @@ function promptUser() {
             name: "continue",
             message: "Would you like to enter another employee?"
         }             
-    ])
-    .then((answer) => {
-        employees.push(answer);
-        if (answer.continue) {
-            promptUser();
-        }
-        else {
-            console.log("Finished entering employees. Your team has been created.");
-            console.log(employees);
-            return employees;
-            // fs.writeFile(html);
-        }
-    });
-
-
-    // additional inquirer prompts based on whether employee is a manager, engineer or intern
-    // .then((answer) => {
-    //     if(answer.role === "Manager") {
-    //   return inquirer.prompt({
-    //     type: 'input',
-    //     name: 'officeNumber',
-    //     message: 'Office number:',
-    //   });
-    //   } else if (answer.role === "Engineer"){
-    //       return inquirer.prompt({
-    //         type: 'input',
-    //         name: 'github',
-    //         message: 'Github ID:',
-    //           })
-    //   } else {
-    //       return inquirer.prompt({
-    //         type: 'input',
-    //         name: 'school',
-    //         message: 'School attending:',
-    //           })
-    //   }
-    //   console.log("Would you like to enter another employee?");
-     
-    }
-
-    
+    ]);
+}
 // });
 
-// After the user has input all employees desired, call the `render` function (required
+// After the user has input all employees desired, call the `render` function (require
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
+
+
 // Call the functions here
-welcomeUser();
+console.log ("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
+
+async function init() {
+    try{
+        const answer = await promptUser();
+        if (answer.role === "Manager") {
+            managers.push(new Manager(answer.name, answer.id, answer.email, answer.officeNumber));
+            isManagerPicked = true;
+        }
+        else if (answer.role === "Engineer") {
+            engineers.push(new Engineer(answer.name, answer.id, answer.email, answer.github));
+        }
+        else {
+            interns.push(new Intern(answer.name, answer.id, answer.email, answer.school));
+        }
+        console.log(answer.continue);
+        if (answer.continue) {
+            init();
+        }
+        else {
+            console.log("Finished entering employees. Your team has been created.");
+                const htmlFile = render([...managers,...engineers,...interns]);
+        
+                await writetoFile("./output/index.html", htmlFile);
+        }
+    }
+    catch(err) {
+        console.log(err)
+    }
+}
+
+init();
+
+
+// async function init() {
+//     try {
+//         const data = await promptUser();
+//         console.log(data);
+
+//         const fileContent = generateMarkdown(data);
+//         console.log(fileContent);
+        
+//         await writeFileAsync("./output/readme.md", fileContent);
+//     }
+//     catch(err) {
+//         console.log(err);
+//     }
+// }
 
 
 
