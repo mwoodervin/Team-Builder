@@ -33,7 +33,6 @@ function promptUser() {
             type: "input",
             name: "name",
             message: "Enter employee name, first and last.",
-            default: "Mary W. Ervin"
         },
         {
             type: "list",
@@ -45,13 +44,11 @@ function promptUser() {
             type: "input",
             name: "id",
             message: "Employee ID:",
-            default: "1"
         },
         {
             type: "input",
             name: "email",
             message: "Employee's email address:",
-            default: "mwoodervin@gmail.com"
         },
         {
             type: "input",
