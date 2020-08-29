@@ -1,3 +1,4 @@
+// Require necessary files and resources
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -12,15 +13,20 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { ENGINE_METHOD_RSA } = require("constants");
 
+// promisify writeFile
 const writetoFile = util.promisify(fs.writeFile);
 
-let employees = [];
+// declare global variables
+// let employees = [];
 const managers = [];
 const interns = [];
 const engineers = [];
 let isManagerPicked = false;
 
+// Opening statement/introduction to the application
+console.log ("\n Welcome to your Team Builder App. To create your team, answer the prompts about each employee.\n");
 
+// function to ask questions using Inquire
 function promptUser() {    
     return inquirer.prompt([
         {
@@ -73,9 +79,7 @@ function promptUser() {
     ]);
 }
 
-// Call the functions here
-console.log ("Welcome to your Team Builder App. To create your team, answer the prompts about each employee.");
-
+// Async function to create objects for each employee using input from Inquirer questions
 async function init() {
     try{
         const answer = await promptUser();
@@ -89,7 +93,7 @@ async function init() {
         else {
             interns.push(new Intern(answer.name, answer.id, answer.email, answer.school));
         }
-        console.log(answer.continue);
+        // console.log(answer.continue);
         if (answer.continue) {
             init();
         }
@@ -105,4 +109,5 @@ async function init() {
     }
 }
 
+// Call function to start process
 init();
