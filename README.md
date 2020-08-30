@@ -26,8 +26,14 @@
   ## USAGE
   This application makes it easy to create a simple employee directory for a team including one manager and any number of engineers and interns. 
 
+  ```
+  As a manager
+  I want to generate a webpage that displays my team's basic info
+  so that I have quick access to emails and GitHub profiles
+  ```
+
   ## TESTING
-  
+
   ![image](https://user-images.githubusercontent.com/65414966/91648521-c7d54d80-ea36-11ea-8cc3-15631985cc89.png)
 
   ## HTML Output
