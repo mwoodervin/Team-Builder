@@ -18,8 +18,10 @@
 ```bash
   node app.js
 ```
-    ### Sample Application Input
-    ![image](https://user-images.githubusercontent.com/65414966/91648563-2d293e80-ea37-11ea-9a37-abc9b1fa160b.png)
+
+  ### Sample Application Input
+  ![image](https://user-images.githubusercontent.com/65414966/91648563-2d293e80-ea37-11ea-9a37-abc9b1fa160b.png)
+
 
   ## USAGE
   This application makes it easy to create a simple employee directory for a team including one manager and any number of engineers and interns. 
