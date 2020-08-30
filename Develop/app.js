@@ -8,6 +8,7 @@ const fs = require("fs");
 const util = require("util");
 
 // automatic ID generator - have not figured out how to integrate this - future development idea
+// would be added to each new Employee as id: uuid.v4()
 const uuid = require("uuid");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
