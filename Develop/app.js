@@ -7,6 +7,9 @@ const path = require("path");
 const fs = require("fs");
 const util = require("util");
 
+// automatic ID generator - have not figured out how to integrate this - future development idea
+const uuid = require("uuid");
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
