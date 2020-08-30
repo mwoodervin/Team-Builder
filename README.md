@@ -27,6 +27,7 @@
   This application makes it easy to create a simple employee directory for a team including one manager and any number of engineers and interns. 
 
   ## TESTING
+  
   ![image](https://user-images.githubusercontent.com/65414966/91648521-c7d54d80-ea36-11ea-8cc3-15631985cc89.png)
 
   ## HTML Output
